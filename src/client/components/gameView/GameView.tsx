@@ -273,7 +273,14 @@ const GameView = (props: GameViewProps) => {
   const getAllLocations = (buttonClick = -1) => {
     // console.log('Current Event on State: ', event);
     if (buttonClick > -1) {
+      console.log('char loc: ', currentChar.location, 'boss location: ', boss?.location, 'headed to location: ', visited[buttonClick]._id);
       currentChar.location = visited[buttonClick]._id;
+      if (visited[buttonClick]._id === boss?.location) {
+        bunny.play(); // <-- if bunny, gets duplicated... is okay.
+        setCurrentEnemy(boss);
+        fetchEvent(4);
+        setShowEnemy(true);
+        }
     }
     axios
       .get('/location/allLocations')
